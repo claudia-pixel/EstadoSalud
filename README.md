@@ -72,3 +72,4 @@ Bash
 
 docker stop <ID_DEL_CONTENEDOR>
 Reemplaza <ID_DEL_CONTENEDOR> con el ID real de tu contenedor.
+

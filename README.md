@@ -1,75 +1,92 @@
 # Sistema de Diagnóstico Simple con Flask y Docker
 
-Este proyecto consiste en una aplicación web simple desarrollada con Flask que permite realizar un diagnóstico básico basado en la temperatura, la frecuencia cardíaca y la saturación de oxígeno ingresadas por el usuario.
+Esta aplicación web, desarrollada con **Flask**, permite realizar un diagnóstico básico ingresando tres signos vitales: temperatura corporal, frecuencia cardíaca y saturación de oxígeno. El sistema se ejecuta dentro de un contenedor **Docker** para facilitar su despliegue.
+
+---
 
 ## Estructura del Proyecto
 
-El proyecto se organiza de la siguiente manera:
-
+```
 .
 ├── app.py
 ├── templates/
 │   └── index.html
-└── Dockerfile
-└── README.md
+├── Dockerfile
+├── README.md
 └── requirements.txt
+```
 
+- `app.py`: Código principal de la aplicación Flask (rutas y lógica del diagnóstico).
+- `templates/index.html`: Interfaz web con un formulario para ingresar los signos vitales.
+- `Dockerfile`: Define cómo construir la imagen Docker para la aplicación.
+- `requirements.txt`: Lista de dependencias de Python necesarias.
+- `README.md`: Documento actual con información sobre el proyecto.
 
-* `app.py`: Contiene el código del servidor Flask, incluyendo las rutas y la lógica de diagnóstico.
-* `templates/index.html`: Es el frontend de la aplicación, un formulario para ingresar los signos vitales.
-* `Dockerfile`: **Archivo existente que define los pasos para construir la imagen de Docker de la aplicación.**
-* `README.md`: Este archivo, que proporciona información sobre el proyecto y cómo ejecutarlo.
-* `requirements.txt`: **Archivo existente que lista las dependencias de Python necesarias para la aplicación.**
+---
 
 ## Prerrequisitos
 
-Antes de comenzar, asegúrate de tener instalado lo siguiente en tu sistema:
+Antes de comenzar, asegúrate de tener instalado:
 
-* **Docker**: Puedes descargarlo e instalarlo desde la [página oficial de Docker](https://www.docker.com/get-started).
+- [**Docker**](https://www.docker.com/get-started): Plataforma para contenerización de aplicaciones.
 
-## Paso a Paso: Crear la Imagen de Docker y Ejecutar la Aplicación
+---
 
-Sigue estos pasos para construir la imagen de Docker y ejecutar la aplicación en un contenedor:
+## Instrucciones para Ejecutar la Aplicación
 
-**1. Construir la imagen de Docker:**
+### 1. Construir la Imagen de Docker
 
-Abre una terminal o símbolo del sistema, navega al directorio donde guardaste los archivos (`app.py`, `templates/`, `Dockerfile`, `requirements.txt`), y ejecuta el siguiente comando para construir la imagen de Docker:
+Abre una terminal y navega al directorio del proyecto. Luego ejecuta:
 
 ```bash
 docker build -t sistema-diagnostico .
-docker build: Es el comando para construir una imagen de Docker.
--t sistema-diagnostico: Asigna el nombre sistema-diagnostico a la imagen que se va a crear. Puedes elegir otro nombre si lo prefieres.
-.: Indica que el contexto de la construcción (los archivos necesarios) se encuentra en el directorio actual.
-Docker utilizará el Dockerfile existente para descargar la imagen base de Python, instalar las dependencias listadas en requirements.txt y copiar tu código dentro de la imagen.
+```
 
-2. Ejecutar el contenedor de Docker:
+**Explicación del comando:**
+- `docker build`: Inicia el proceso de construcción.
+- `-t sistema-diagnostico`: Asigna el nombre `sistema-diagnostico` a la imagen.
+- `.`: Usa el directorio actual como contexto de construcción.
 
-Una vez que la imagen se haya construido exitosamente, puedes ejecutar un contenedor basado en esa imagen con el siguiente comando:
+---
 
-Bash
+### 2. Ejecutar el Contenedor
 
+Inicia la aplicación en un contenedor con:
+
+```bash
 docker run -p 5000:5000 sistema-diagnostico
-docker run: Es el comando para ejecutar un contenedor a partir de una imagen.
--p 5000:5000: Realiza el mapeo de puertos. El primer 5000 se refiere al puerto en tu máquina local (host), y el segundo 5000 es el puerto dentro del contenedor donde la aplicación Flask está sirviendo la aplicación. Esto permite acceder a la aplicación desde tu navegador.
-sistema-diagnostico: Es el nombre de la imagen que quieres ejecutar.
-3. Acceder a la aplicación:
+```
 
-Una vez que el contenedor esté en ejecución, abre tu navegador web y navega a la siguiente dirección:
+**Detalles:**
+- `-p 5000:5000`: Mapea el puerto 5000 del contenedor al de tu máquina local.
+- `sistema-diagnostico`: Imagen creada en el paso anterior.
 
+---
+
+### 3. Acceder a la Aplicación
+
+Abre tu navegador y visita:
+
+```
 http://localhost:5000/
-Deberías ver el formulario de captura de signos vitales de tu aplicación.
+```
 
-4. Detener el contenedor:
+Deberías ver el formulario para ingresar los signos vitales.
 
-Para detener el contenedor cuando hayas terminado, puedes encontrar su ID o nombre usando el comando:
+---
 
-Bash
+### 4. Detener el Contenedor
 
+Primero, obtén el ID del contenedor en ejecución:
+
+```bash
 docker ps
-Luego, utiliza el comando docker stop seguido del ID o el nombre del contenedor:
+```
 
-Bash
+Luego detén el contenedor con:
 
+```bash
 docker stop <ID_DEL_CONTENEDOR>
-Reemplaza <ID_DEL_CONTENEDOR> con el ID real de tu contenedor.
+```
 
+Reemplaza `<ID_DEL_CONTENEDOR>` con el ID mostrado por el comando anterior.
